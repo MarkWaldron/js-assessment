@@ -8,7 +8,8 @@ exports = (typeof window === 'undefined') ? global : window;
 
 exports.bestPracticesAnswers = {
   globals : function() {
-    myObject = {
+    // let is block scope. Could use const if obj wouldn't be modified
+    let myObject = {
       name : 'Jory'
     };
 
@@ -17,19 +18,23 @@ exports.bestPracticesAnswers = {
 
   functions : function(flag) {
     if (flag) {
-      function getValue() { return 'a'; }
+      var getValue = function() { return 'a'; }
     } else {
-      function getValue() { return 'b'; }
+      var getValue = function() { return 'b'; }
     }
 
     return getValue();
   },
 
   parseInt : function(num) {
-    return parseInt(num);
+    // Provide radix value to get base 10 numbers.
+    // Should always be specified to get predictable behavior
+    return parseInt(num, 10);
   },
 
   identity : function(val1, val2) {
-
+    // == is abstract, or loose, equality - converts to common type
+    // === is strict equality
+    return val1 === val2
   }
 };
